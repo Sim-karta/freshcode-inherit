@@ -28,11 +28,20 @@ class FoodProduct {
     }
 }
 
-const product1 = new FoodProduct(
+class DiscountedProduct extends FoodProduct {
+    constructor(title, category, brand, manufactureDate, maxDiscountLimit) {
+        super(title, category, brand, manufactureDate);
+        this._maxDiscountLimit = maxDiscountLimit;
+        this._currentDiscount = 0;
+    }
+}
+
+const product1 = new DiscountedProduct(
     "Молоко 2.5%",
     "Молочка",
     "Яготинське",
     new Date("2026-08-20"),
+    75,
 );
 console.dir(product1);
 console.log(product1.getFullInfo());
