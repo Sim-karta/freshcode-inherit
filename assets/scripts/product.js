@@ -102,6 +102,18 @@ class PerishableProduct extends DiscountedProduct {
 
         return 0;
     }
+
+    getFullInfo() {
+        let status = "свіжий";
+
+        if (this.isExpired) {
+            status = "прострочений";
+        } else if (this._currentDiscount > 0) {
+            status = "уцінений";
+        }
+
+        return `${super.getFullInfo()}, залишилося днів: ${this.daysLeft}, статус: ${status}`;
+    }
 }
 
 const products = [
@@ -129,7 +141,7 @@ const products = [
         "Сметана 15%",
         "Молочка",
         "Президент",
-        new Date("2026-08-21"),
+        new Date("2026-08-17"),
         40,
         7,
     ),
@@ -144,7 +156,8 @@ console.log("Після застосування знижки:", discountedProdu
 console.log("Знижка 40% застосована:", discountedProduct.applyDiscount(40));
 
 const perishableProduct = products[3];
-console.dir(perishableProduct);
 console.log(
     `Рекомендована знижка: ${perishableProduct.calculateRecommendedDiscount()}%`,
 );
+console.log("Повна інформація про швидкопсувний товар:");
+console.log(perishableProduct.getFullInfo());
