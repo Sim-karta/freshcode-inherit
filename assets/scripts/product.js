@@ -49,12 +49,33 @@ class DiscountedProduct extends FoodProduct {
     }
 }
 
-const product1 = new DiscountedProduct(
-    "Молоко 2.5%",
-    "Молочка",
-    "Яготинське",
-    new Date("2026-08-20"),
-    50,
-);
-console.dir(product1);
-console.log(product1.getFullInfo());
+const products = [
+    new FoodProduct(
+        "Молоко 2.5%",
+        "Молочка",
+        "Яготинське",
+        new Date("2026-08-20"),
+    ),
+    new DiscountedProduct(
+        "Йогурт полуничний",
+        "Молочка",
+        "Галичина",
+        new Date("2026-08-18"),
+        30,
+    ),
+    new DiscountedProduct(
+        "Хліб пшеничний",
+        "Випічка",
+        "Київхліб",
+        new Date("2026-08-22"),
+        20,
+    ),
+];
+
+console.log("Інформація про товари:");
+products.forEach((product) => console.log(product.getFullInfo()));
+
+const discountedProduct = products[1];
+console.log("Знижка 15% застосована:", discountedProduct.applyDiscount(15));
+console.log("Після застосування знижки:", discountedProduct.getFullInfo());
+console.log("Знижка 40% застосована:", discountedProduct.applyDiscount(40));
