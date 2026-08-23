@@ -49,6 +49,20 @@ class DiscountedProduct extends FoodProduct {
     }
 }
 
+class PerishableProduct extends DiscountedProduct {
+    constructor(
+        title,
+        category,
+        brand,
+        manufactureDate,
+        maxDiscountLimi,
+        shelfLifeDays,
+    ) {
+        super(title, category, brand, manufactureDate, maxDiscountLimi);
+        this._shelfLifeDays = shelfLifeDays;
+    }
+}
+
 const products = [
     new FoodProduct(
         "Молоко 2.5%",
@@ -70,6 +84,14 @@ const products = [
         new Date("2026-08-22"),
         20,
     ),
+    new PerishableProduct(
+        "Сметана 15%",
+        "Молочка",
+        "Президент",
+        new Date("2026-08-21"),
+        40,
+        7,
+    ),
 ];
 
 console.log("Інформація про товари:");
@@ -79,3 +101,6 @@ const discountedProduct = products[1];
 console.log("Знижка 15% застосована:", discountedProduct.applyDiscount(15));
 console.log("Після застосування знижки:", discountedProduct.getFullInfo());
 console.log("Знижка 40% застосована:", discountedProduct.applyDiscount(40));
+
+const perishableProduct = products[3];
+console.dir(perishableProduct);
