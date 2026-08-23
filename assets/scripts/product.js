@@ -67,7 +67,40 @@ class PerishableProduct extends DiscountedProduct {
     }
 
     get isExpired() {
-        return this._daysLeft <= 0;
+        return this.daysLeft <= 0;
+    }
+
+    calculateRecommendedDiscount() {
+        if (this.isExpired) {
+            return 0;
+        }
+
+        if (this._category === "Молочка") {
+            if (this.daysLeft === 1) {
+                return 40;
+            }
+            if (this.daysLeft === 2) {
+                return 20;
+            }
+        }
+
+        if (this._category === "Випічка") {
+            if (this.daysLeft === 1) {
+                return 50;
+            }
+            if (this.daysLeft === 2) {
+                return 30;
+            }
+        }
+
+        if (this.daysLeft === 1) {
+            return 30;
+        }
+        if (this.daysLeft === 2) {
+            return 15;
+        }
+
+        return 0;
     }
 }
 
@@ -112,3 +145,6 @@ console.log("Знижка 40% застосована:", discountedProduct.applyD
 
 const perishableProduct = products[3];
 console.dir(perishableProduct);
+console.log(
+    `Рекомендована знижка: ${perishableProduct.calculateRecommendedDiscount()}%`,
+);
