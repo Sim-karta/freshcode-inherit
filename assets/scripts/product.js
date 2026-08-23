@@ -61,6 +61,14 @@ class PerishableProduct extends DiscountedProduct {
         super(title, category, brand, manufactureDate, maxDiscountLimi);
         this._shelfLifeDays = shelfLifeDays;
     }
+
+    get daysLeft() {
+        return this._shelfLifeDays - this.ageInDays;
+    }
+
+    get isExpired() {
+        return this._daysLeft <= 0;
+    }
 }
 
 const products = [
