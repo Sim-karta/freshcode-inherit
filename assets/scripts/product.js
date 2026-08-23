@@ -116,48 +116,83 @@ class PerishableProduct extends DiscountedProduct {
     }
 }
 
-const products = [
-    new FoodProduct(
+const storeProducts = [
+    new PerishableProduct(
         "Молоко 2.5%",
         "Молочка",
         "Яготинське",
-        new Date("2026-08-20"),
-    ),
-    new DiscountedProduct(
-        "Йогурт полуничний",
-        "Молочка",
-        "Галичина",
-        new Date("2026-08-18"),
-        30,
-    ),
-    new DiscountedProduct(
-        "Хліб пшеничний",
-        "Випічка",
-        "Київхліб",
         new Date("2026-08-22"),
-        20,
+        50,
+        7,
+    ),
+    new PerishableProduct(
+        "Яйця курячі",
+        "Яйця",
+        "Квочка",
+        new Date("2026-08-23"),
+        30,
+        21,
+    ),
+    new PerishableProduct(
+        "Печиво вівсяне",
+        "Солодощі",
+        "Артек",
+        new Date("2026-08-22"),
+        25,
+        30,
     ),
     new PerishableProduct(
         "Сметана 15%",
         "Молочка",
         "Президент",
-        new Date("2026-08-17"),
-        40,
+        new Date("2026-08-18"),
+        50,
+        6,
+    ),
+    new PerishableProduct(
+        "Хліб пшеничний",
+        "Випічка",
+        "Київхліб",
+        new Date("2026-08-20"),
+        50,
+        4,
+    ),
+    new PerishableProduct(
+        "Яблучний сік",
+        "Напої",
+        "Садочок",
+        new Date("2026-08-19"),
+        30,
+        5,
+    ),
+    new PerishableProduct(
+        "Сир кисломолочний",
+        "Молочка",
+        "Ферма",
+        new Date("2026-08-10"),
+        50,
         7,
     ),
 ];
 
-console.log("Інформація про товари:");
-products.forEach((product) => console.log(product.getFullInfo()));
+storeProducts.forEach((product) => {
+    const recommendedDiscount = product.calculateRecommendedDiscount();
+    product.applyDiscount(recommendedDiscount);
+});
 
-const discountedProduct = products[1];
-console.log("Знижка 15% застосована:", discountedProduct.applyDiscount(15));
-console.log("Після застосування знижки:", discountedProduct.getFullInfo());
-console.log("Знижка 40% застосована:", discountedProduct.applyDiscount(40));
 
-const perishableProduct = products[3];
-console.log(
-    `Рекомендована знижка: ${perishableProduct.calculateRecommendedDiscount()}%`,
-);
-console.log("Повна інформація про швидкопсувний товар:");
-console.log(perishableProduct.getFullInfo());
+console.log("Усі товари:");
+storeProducts
+    .forEach((product) => console.log(product.getFullInfo()));
+
+console.log("--------------------------------------------");
+console.log("Уцінені товари:");
+storeProducts
+    .filter((product) => product._currentDiscount > 0)
+    .forEach((product) => console.log(product.getFullInfo()));
+
+console.log("--------------------------------------------");
+console.log("Товари, які підлягають списанню:");
+storeProducts
+    .filter((product) => product.isExpired === true)
+    .forEach((product) => console.log(product.getFullInfo()));
