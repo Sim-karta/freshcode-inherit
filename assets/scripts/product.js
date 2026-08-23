@@ -175,24 +175,36 @@ const storeProducts = [
     ),
 ];
 
+const productsGroup = document.querySelector(".products");
+const allProductsBtn = productsGroup.querySelector(".all-products-btn");
+const discountedProductsBtn = productsGroup.querySelector(
+    ".discounted-products-btn",
+);
+const expiredProductsBtn = productsGroup.querySelector(".expired-products-btn");
+
 storeProducts.forEach((product) => {
     const recommendedDiscount = product.calculateRecommendedDiscount();
     product.applyDiscount(recommendedDiscount);
 });
 
+allProductsBtn.addEventListener("click", () => {
+    console.log("--------------------------------------------");
+    console.log("Усі товари:");
+    storeProducts.forEach((product) => console.log(product.getFullInfo()));
+});
 
-console.log("Усі товари:");
-storeProducts
-    .forEach((product) => console.log(product.getFullInfo()));
+discountedProductsBtn.addEventListener("click", () => {
+    console.log("--------------------------------------------");
+    console.log("Уцінені товари:");
+    storeProducts
+        .filter((product) => product._currentDiscount > 0)
+        .forEach((product) => console.log(product.getFullInfo()));
+});
 
-console.log("--------------------------------------------");
-console.log("Уцінені товари:");
-storeProducts
-    .filter((product) => product._currentDiscount > 0)
-    .forEach((product) => console.log(product.getFullInfo()));
-
-console.log("--------------------------------------------");
-console.log("Товари, які підлягають списанню:");
-storeProducts
-    .filter((product) => product.isExpired === true)
-    .forEach((product) => console.log(product.getFullInfo()));
+expiredProductsBtn.addEventListener("click", () => {
+    console.log("--------------------------------------------");
+    console.log("Товари, які підлягають списанню:");
+    storeProducts
+        .filter((product) => product.isExpired === true)
+        .forEach((product) => console.log(product.getFullInfo()));
+});
