@@ -34,6 +34,19 @@ class DiscountedProduct extends FoodProduct {
         this._maxDiscountLimit = maxDiscountLimit;
         this._currentDiscount = 0;
     }
+
+    applyDiscount(percent) {
+        if (percent <= this._maxDiscountLimit) {
+            this._currentDiscount = percent;
+            return true;
+        }
+
+        return false;
+    }
+
+    getFullInfo() {
+        return `${super.getFullInfo()}, поточна знижка: ${this._currentDiscount}%, максимальна знижка: ${this._maxDiscountLimit}%`;
+    }
 }
 
 const product1 = new DiscountedProduct(
@@ -41,7 +54,7 @@ const product1 = new DiscountedProduct(
     "Молочка",
     "Яготинське",
     new Date("2026-08-20"),
-    75,
+    50,
 );
 console.dir(product1);
 console.log(product1.getFullInfo());
